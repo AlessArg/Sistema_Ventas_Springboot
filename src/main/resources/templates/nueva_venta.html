@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nueva Venta - Sistema de Ventas</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${venta.id == null} ? 'Nueva Venta' : 'Editar Venta'"></h1>
+
+        <form th:action="@{/ventas/guardar}" th:object="${venta}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <label for="Cliente">clientes</label>
+            <select id="cliente" th:field="*{cliente.id}" required>
+                <option value="" disabled selected>Seleccione un cliente</option>
+                <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+            </select>
+
+            <label for="producto">Producto</label>
+            <select id="producto" th:field="*{producto.id}" required>
+                <option value="" disabled selected>Seleccione un producto</option>
+                <option th:each="producto : ${productos}" th:value="${producto.id}" th:text="${producto.nombre}"></option>
+            </select>
+
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" name="cantidad" min="1" required
+                   th:value="${venta.cantidad}" />
+
+            <label for="fechaVenta">Fecha de Venta</label>
+            <input type="date" id="fechaVenta" name="fechaVenta"
+                   th:value="${venta.fechaVenta}" required />
+
+            <input type="submit" value="Guardar" />
+        </form>
+
+        <a th:href="@{/ventas}" class="button">Volver al listado</a>
+    </div>
+</body>
+</html>

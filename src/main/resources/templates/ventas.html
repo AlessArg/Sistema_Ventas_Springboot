@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ventas - Sistema de Ventas</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Listado de Ventas</h1>
+
+        <a th:href="@{/ventas/nueva}" class="button">Nueva Venta</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="venta : ${ventas}">
+                    <td th:text="${venta.id}"></td>
+                    <td th:text="${venta.cliente.nombre}"></td>
+                    <td th:text="${venta.producto.nombre}"></td>
+                    <td th:text="${venta.cantidad}"></td>
+                    <td th:text="${venta.total}"></td>
+                    <td th:text="${venta.fechaVenta}"></td>
+                    <td>
+                        <a th:href="@{'/ventas/editar/' + ${venta.id}}">Editar</a> |
+                        <a th:href="@{'/ventas/eliminar/' + ${venta.id}}" onclick="return confirm('¿Seguro que quieres eliminar esta venta?');">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
